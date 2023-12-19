@@ -1,5 +1,5 @@
 import express from 'express';
-import 'express-async-errors';
+import 'express-async-errors'; // use this to handle async errors
 import { json } from 'body-parser';
 
 import { currentUserRouter } from './routes/current-user';
@@ -13,16 +13,19 @@ import { NotFoundError } from './errors/not-found-error';
 const app = express();
 app.use(json());
 
+// routing
 app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signupRouter);
 app.use(signoutRouter);
 
+// error handling
+// unknown route error handling
 app.all('*', async (req, res, next) => {
   throw new NotFoundError();
 });
 
-// middleware
+// using the error handling middleware we created
 app.use(errorHandler);
 
 app.listen(3000, () => {
