@@ -19,16 +19,29 @@ interface UserDoc extends mongoose.Document {
   password: string;
 }
 
-const userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true
+const userSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: true
+    },
+    password: {
+      type: String,
+      required: true
+    }
   },
-  password: {
-    type: String,
-    required: true
+  {
+    toJSON: {
+      // edit returned json file from mongodb
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.password;
+        delete ret.__v;
+      }
+    }
   }
-});
+);
 
 // mongoose built-in middleware to intercept function calls
 // perform password hashing when saving
