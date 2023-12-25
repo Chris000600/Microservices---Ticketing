@@ -1,0 +1,3 @@
+[submodule "tickets/common"]
+	path = tickets/common
+	url = https://github.com/Chris000600/common.git
