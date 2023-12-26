@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { Password } from '../services/password';
 
-// describe the properties that are required to create a new User
+// describe the properties that are required to CREATE a new User record
 interface UserAttributes {
   email: string;
   password: string;
@@ -12,7 +12,8 @@ interface UserModel extends mongoose.Model<UserDoc> {
   build(attributes: UserAttributes): UserDoc;
 }
 
-// describe the properties that a User Document has
+// describe the properties that a saved record has
+// represents a single record
 interface UserDoc extends mongoose.Document {
   // user properties
   email: string;
@@ -53,6 +54,7 @@ userSchema.pre('save', async function (done) {
   done();
 });
 
+// for typechecking
 userSchema.statics.build = (attributes: UserAttributes) => {
   return new User(attributes);
 };

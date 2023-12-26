@@ -2,7 +2,12 @@ import express from 'express';
 import 'express-async-errors'; // use this to handle async errors
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
-import { errorHandler, NotFoundError } from '@microtutorials/common';
+import {
+  errorHandler,
+  NotFoundError,
+  currentUser
+} from '@microtutorials/common';
+import { createTicketRouter } from './routes/new';
 
 const app = express();
 app.set('trust proxy', true); // trust ingress
@@ -13,6 +18,10 @@ app.use(
     secure: process.env.NODE_ENV !== 'test' // false if test
   })
 );
+
+app.use(currentUser);
+
+app.use(createTicketRouter);
 
 // error handling
 // unknown route error handling
