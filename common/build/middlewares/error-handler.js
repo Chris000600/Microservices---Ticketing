@@ -11,6 +11,7 @@ next) => {
         return res.status(err.statusCode).send({ errors: err.serializeErrors() });
     }
     // unknown errors
+    console.error(err);
     res.status(400).send({ errors: [{ message: 'Something went wrong' }] });
 };
 exports.errorHandler = errorHandler;

@@ -5,6 +5,7 @@ import { Ticket } from '../models/ticket';
 
 const router = express.Router();
 
+// create new ticket
 router.post(
   '/api/tickets',
   requireAuth,
